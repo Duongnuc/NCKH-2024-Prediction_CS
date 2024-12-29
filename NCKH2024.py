@@ -178,3 +178,17 @@ if validity == "Hợp lệ":
     # Emissions per MPa
     co2_per_mpa = total_emissions / strength_at_91_days if strength_at_91_days > 0 else 0
     st.markdown(f"<span style='color:red'>**Phát thải CO2 (kgCO2/MPa):** {co2_per_mpa:.6f} kgCO2/MPa</span>", unsafe_allow_html=True)
+import os
+
+print("Current working directory:", os.getcwd())
+print("Files in directory:", os.listdir())
+
+try:
+    model = joblib.load('lightgbm_model.pkl')
+    print("Model loaded successfully!")
+except FileNotFoundError:
+    print("FileNotFoundError: lightgbm_model.pkl không tồn tại trong thư mục hiện tại.")
+    raise
+except Exception as e:
+    print("Unexpected error occurred while loading the model:", e)
+    raise
