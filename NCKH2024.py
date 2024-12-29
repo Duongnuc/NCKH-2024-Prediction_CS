@@ -43,7 +43,7 @@ st.title("Thiết kế cấp phối bê tông và dự đoán cường độ")
 
 # Input Section
 st.sidebar.header("Nhập thông số vật liệu")
-cement = st.sidebar.number_input("Khối lượng xi măng (kg/m³)", value=36360.00, step=0.01, format="%.2f")
+cement = st.sidebar.number_input("Khối lượng xi măng (kg/m³)", value=360.00, step=0.01, format="%.2f")
 slag = st.sidebar.number_input("Khối lượng xỉ (kg/m³)", value=100.00, step=0.01, format="%.2f")
 ash = st.sidebar.number_input("Khối lượng tro bay (kg/m³)", value=70.00, step=0.01, format="%.2f")
 water = st.sidebar.number_input("Khối lượng nước (kg/m³)", value=150.00, step=0.01, format="%.2f")
