@@ -5,7 +5,7 @@ import joblib
 import matplotlib.pyplot as plt
 
 # Load trained model
-model = joblib.load('lightgbm_model.pkl')
+model = joblib.load('lgbm_best_model.pkl')
 
 # Function for scaling proportions to 1m³
 def scale_to_one_cubic_meter(materials, densities):
