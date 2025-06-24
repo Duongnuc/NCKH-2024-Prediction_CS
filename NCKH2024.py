@@ -39,7 +39,7 @@ def is_valid_mix(materials, scaled_materials):
     return "Hợp lệ"
 
 # Streamlit UI
-st.title("Dự Đoán cường độ bê tông sử dụng phụ hàm lượng phụ gia khoáng cao")
+st.title("Dự đoán cường độ bê tông sử dụng phụ hàm lượng phụ gia khoáng cao")
 
 # Input Section
 st.sidebar.header("Nhập thông số vật liệu")
