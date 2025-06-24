@@ -21,7 +21,9 @@ def is_valid_mix(materials, scaled_materials):
     # Ratio check
     if ratio < 0.3 or ratio > 0.6:
         return "Tỷ lệ xỉ + tro bay/(xỉ + tro bay + xi măng) ngoài khoảng (0.3-0.6)."
-
+binder = cement + slag + ash  # Xi măng + xỉ + tro bay (sau quy đổi)
+if binder < 320 or binder > 695:
+        return "Hàm lượng chất kết dính nằm ngoài khoảng dự đoán (320-695 kg/m³)."
     # Range check
     ranges = {
         "Xi măng": (129, 486),
