@@ -158,7 +158,30 @@ if validity == "Hợp lệ":
         "Xỉ": (st.sidebar.number_input("Cự li vận chuyển xỉ (km)", value=70, step=1), 5.18e-5),
         "Tro bay": (st.sidebar.number_input("Cự li vận chuyển tro bay (km)", value=170, step=1), 5.18e-5),
         "Nước": (st.sidebar.number_input("Cự li vận chuyển nước (km)", value=0, step=1), 0),
-        "Phụ gia": (st.sidebar.number_input("Cự li vận chuyển phụđộ:** {co2_per_mpa:.6f} kgCO2/MPa</span>", unsafe_allow_html=True)
+        "Phụ gia": (st.sidebar.number_input("Cự li vận chuyển phụ gia (km)", value=16, step=1), 2.21e-4),
+        "Đá": (st.sidebar.number_input("Cự li vận chuyển đá (km)", value=20, step=1), 6.3e-5),
+        "Cát": (st.sidebar.number_input("Cự li vận chuyển cát (km)", value=35, step=1), 6.3e-5),
+    }
+    a2_emissions = sum(
+        scaled_materials[i] * dist * rate for i, (dist, rate) in enumerate(transport.values())
+    )
+
+    # Phase A3 emissions
+    st.sidebar.header("Nhập phát thải sản xuất bê tông (A3)")
+    a3_emissions = st.sidebar.number_input("Phát thải CO2 sản xuất bê tông (kgCO2/m³)", value=0.507, step=0.0001, format="%.4f")
+
+    # Total emissions
+    total_emissions = a1_emissions + a2_emissions + a3_emissions
+
+    # Display emissions breakdown
+    st.write(f"**Phát thải CO2 giai đoạn A1:** {a1_emissions:.6f} kgCO2/m³")
+    st.write(f"**Phát thải CO2 giai đoạn A2:** {a2_emissions:.6f} kgCO2/m³")
+    st.write(f"**Phát thải CO2 giai đoạn A3:** {a3_emissions:.6f} kgCO2/m³")
+    st.markdown(f"<span style='color:red'>**Tổng phát thải CO₂:** {total_emissions:.6f} kgCO₂/m³</span>", unsafe_allow_html=True)
+
+    # Emissions per MPa
+    co2_per_mpa = total_emissions / strength_at_91_days if strength_at_91_days > 0 else 0
+    st.markdown(f"<span style='color:red'>**Phát thải CO2 (kgCO2/MPa):** {co2_per_mpa:.6f} kgCO2/MPa</span>", unsafe_allow_html=True)MPa</span>", unsafe_allow_html=True)
 import os
 
 print("Current working directory:", os.getcwd())
