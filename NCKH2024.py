@@ -177,11 +177,11 @@ if validity == "Hợp lệ":
     st.write(f"**Phát thải CO2 giai đoạn A1:** {a1_emissions:.6f} kgCO2/m³")
     st.write(f"**Phát thải CO2 giai đoạn A2:** {a2_emissions:.6f} kgCO2/m³")
     st.write(f"**Phát thải CO2 giai đoạn A3:** {a3_emissions:.6f} kgCO2/m³")
-    st.markdown(f"<span style='color:red'>**Tổng phát thải CO₂:** {total_emissions:.6f} kgCO₂/m³</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='color:red'>**Tổng phát thải CO₂ trên 1m3 bê tông:** {total_emissions:.6f} kgCO₂/m³</span>", unsafe_allow_html=True)
 
     # Emissions per MPa
     co2_per_mpa = total_emissions / strength_at_91_days if strength_at_91_days > 0 else 0
-    st.markdown(f"<span style='color:red'>**Phát thải CO2 (kgCO2/MPa):** {co2_per_mpa:.6f} kgCO2/MPa</span>", unsafe_allow_html=True)MPa</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='color:red'>**Lượng phát thải CO₂ trên 1 MPa cường độ:** {co2_per_mpa:.6f} kgCO2/MPa</span>", unsafe_allow_html=True)
 import os
 
 print("Current working directory:", os.getcwd())
