@@ -47,13 +47,13 @@ st.title("Dự đoán cường độ bê tông sử dụng phụ hàm lượng p
 
 # Input Section
 st.sidebar.header("Nhập thông số vật liệu")
-cement = st.sidebar.number_input("Khối lượng xi măng (kg/m³)", value=360.00, step=0.01, format="%.2f")
-slag = st.sidebar.number_input("Khối lượng xỉ (kg/m³)", value=100.00, step=0.01, format="%.2f")
-ash = st.sidebar.number_input("Khối lượng tro bay (kg/m³)", value=70.00, step=0.01, format="%.2f")
-water = st.sidebar.number_input("Khối lượng nước (kg/m³)", value=150.00, step=0.01, format="%.2f")
-superplastic = st.sidebar.number_input("Khối lượng phụ gia (kg/m³)", value=7.00, step=0.01, format="%.2f")
-coarseagg = st.sidebar.number_input("Khối lượng đá (kg/m³)", value=900.00, step=0.01, format="%.2f")
-fineagg = st.sidebar.number_input("Khối lượng cát (kg/m³)", value=850.00, step=0.01, format="%.2f")
+cement = st.sidebar.number_input("Khối lượng xi măng (kg/m³)", value=267.00, step=0.01, format="%.2f")
+slag = st.sidebar.number_input("Khối lượng xỉ (kg/m³)", value=107.00, step=0.01, format="%.2f")
+ash = st.sidebar.number_input("Khối lượng tro bay (kg/m³)", value=72.00, step=0.01, format="%.2f")
+water = st.sidebar.number_input("Khối lượng nước (kg/m³)", value=175.00, step=0.01, format="%.2f")
+superplastic = st.sidebar.number_input("Khối lượng phụ gia (kg/m³)", value=4.60, step=0.01, format="%.2f")
+coarseagg = st.sidebar.number_input("Khối lượng đá (kg/m³)", value=968.00, step=0.01, format="%.2f")
+fineagg = st.sidebar.number_input("Khối lượng cát (kg/m³)", value=825.00, step=0.01, format="%.2f")
 
 # Densities
 densities = [3.1, 2.7, 2.29, 1.0, 1.07, 2.74, 2.67]
@@ -117,23 +117,23 @@ if validity == "Hợp lệ":
     st.subheader("Tính toán giá thành và hiệu quả kinh tế:")
     st.sidebar.header("Nhập giá thành từng vật liệu (VNĐ/kg)")
     prices = {
-        "Xi măng": st.sidebar.number_input("Giá xi măng (VNĐ/kg)", value=1800, step=1),
-        "Xỉ": st.sidebar.number_input("Giá xỉ (VNĐ/kg)", value=800, step=1),
-        "Tro bay": st.sidebar.number_input("Giá tro bay (VNĐ/kg)", value=600, step=1),
+        "Xi măng": st.sidebar.number_input("Giá xi măng (VNĐ/kg)", value=1000, step=1),
+        "Xỉ": st.sidebar.number_input("Giá xỉ (VNĐ/kg)", value=550, step=1),
+        "Tro bay": st.sidebar.number_input("Giá tro bay (VNĐ/kg)", value=350, step=1),
         "Nước": st.sidebar.number_input("Giá nước (VNĐ/kg)", value=20, step=1),
         "Phụ gia": st.sidebar.number_input("Giá phụ gia (VNĐ/kg)", value=25000, step=1),
-        "Đá": st.sidebar.number_input("Giá đá (VNĐ/kg)", value=241, step=1),
-        "Cát": st.sidebar.number_input("Giá cát (VNĐ/kg)", value=351, step=1),
+        "Đá": st.sidebar.number_input("Giá đá (VNĐ/kg)", value=275, step=1),
+        "Cát": st.sidebar.number_input("Giá cát (VNĐ/kg)", value=415, step=1),
     }
 
     # Calculate cost per m³
     total_cost = sum(scaled_materials[i] * price for i, price in enumerate(prices.values()))
-    st.write(f"**Giá thành sản xuất 1m³ bê tông:** {total_cost:,.0f} VNĐ")
+    st.markdown(f"<span style='color:red'>**Giá thành sản xuất 1m³ bê tông:** {total_cost:,.0f} VNĐ</span>", unsafe_allow_html=True)
 
     # Calculate economic efficiency
     strength_at_91_days = strengths[-1]
     economic_efficiency = total_cost / strength_at_91_days if strength_at_91_days > 0 else 0
-    st.markdown(f"<span style='color:red'>**Hiệu quả kinh tế (VNĐ/MPa):** {economic_efficiency:,.0f} VNĐ/MPa</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='color:red'>**Giá quy đổi trên 1 MPa:** {economic_efficiency:,.0f} VNĐ/MPa</span>", unsafe_allow_html=True)
 
     # Calculate CO2 emissions
     st.subheader("Tính toán phát thải CO2:")
@@ -158,30 +158,7 @@ if validity == "Hợp lệ":
         "Xỉ": (st.sidebar.number_input("Cự li vận chuyển xỉ (km)", value=70, step=1), 5.18e-5),
         "Tro bay": (st.sidebar.number_input("Cự li vận chuyển tro bay (km)", value=170, step=1), 5.18e-5),
         "Nước": (st.sidebar.number_input("Cự li vận chuyển nước (km)", value=0, step=1), 0),
-        "Phụ gia": (st.sidebar.number_input("Cự li vận chuyển phụ gia (km)", value=16, step=1), 2.21e-4),
-        "Đá": (st.sidebar.number_input("Cự li vận chuyển đá (km)", value=20, step=1), 6.3e-5),
-        "Cát": (st.sidebar.number_input("Cự li vận chuyển cát (km)", value=35, step=1), 6.3e-5),
-    }
-    a2_emissions = sum(
-        scaled_materials[i] * dist * rate for i, (dist, rate) in enumerate(transport.values())
-    )
-
-    # Phase A3 emissions
-    st.sidebar.header("Nhập phát thải sản xuất bê tông (A3)")
-    a3_emissions = st.sidebar.number_input("Phát thải CO2 sản xuất bê tông (kgCO2/m³)", value=0.507, step=0.0001, format="%.4f")
-
-    # Total emissions
-    total_emissions = a1_emissions + a2_emissions + a3_emissions
-
-    # Display emissions breakdown
-    st.write(f"**Phát thải CO2 giai đoạn A1:** {a1_emissions:.6f} kgCO2/m³")
-    st.write(f"**Phát thải CO2 giai đoạn A2:** {a2_emissions:.6f} kgCO2/m³")
-    st.write(f"**Phát thải CO2 giai đoạn A3:** {a3_emissions:.6f} kgCO2/m³")
-    st.write(f"**Tổng phát thải CO2:** {total_emissions:.6f} kgCO2/m³")
-
-    # Emissions per MPa
-    co2_per_mpa = total_emissions / strength_at_91_days if strength_at_91_days > 0 else 0
-    st.markdown(f"<span style='color:red'>**Phát thải CO2 (kgCO2/MPa):** {co2_per_mpa:.6f} kgCO2/MPa</span>", unsafe_allow_html=True)
+        "Phụ gia": (st.sidebar.number_input("Cự li vận chuyển phụđộ:** {co2_per_mpa:.6f} kgCO2/MPa</span>", unsafe_allow_html=True)
 import os
 
 print("Current working directory:", os.getcwd())
